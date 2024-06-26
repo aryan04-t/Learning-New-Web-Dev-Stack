@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Home = () => {
- 
+
   return (
     <div className='w-screen h-screen bg-zinc-900 text-white flex flex-col items-center justify-center gap-8 p-4'>
       
@@ -12,7 +12,7 @@ const Home = () => {
       
       <div className='w-full text-xl sm:text-3xl text-center'>
         Wanna navigate to Write Page??      
-        <Link to={'/write'}>
+        <Link to={'/add-fruit'}>
           <span className='text-blue-500 hover:text-green-500 pl-2 cursor-pointer'>
             Click Me 
           </span>
