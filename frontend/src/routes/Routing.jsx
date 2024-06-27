@@ -4,6 +4,7 @@ import GlobalToasterLayout from '../layouts/GlobalToasterLayout.jsx'
 
 import Home from '../components/Home.jsx' 
 import AddFruit from '../components/AddFruit.jsx' 
+import DisplayFruits from '../components/DisplayFruits.jsx' 
 
 
 const Routing = () => {

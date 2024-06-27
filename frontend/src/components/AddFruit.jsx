@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 import { app } from '../firebase/firebase.config' 
 import { getDatabase, ref, set, push } from 'firebase/database' 
+import DisplayFruits from './DisplayFruits';
 
 
 const AddFruit = () => {
@@ -110,7 +111,7 @@ const AddFruit = () => {
     const cssForInputTags = 'bg-white text-black p-2 rounded-lg text-[16px] w-full'; 
 
     return (
-        <div className='w-screen h-screen bg-zinc-900 flex items-center justify-center'> 
+        <div className='w-screen h-screen bg-zinc-900 flex items-center justify-center gap-40'> 
             <form onSubmit={handleSubmit} className='h-[500px] w-[400px] p-8 bg-zinc-700 rounded-lg'>
                 
                 <div className='text-5xl mb-[30px] mt-[15px] text-center text-white' >
@@ -156,6 +157,8 @@ const AddFruit = () => {
                 </div>
 
             </form>
+
+            <DisplayFruits /> 
         </div>
     )
 }
