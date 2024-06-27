@@ -11,7 +11,7 @@ const Home = () => {
       </div>
       
       <div className='w-full text-xl sm:text-3xl text-center'>
-        Wanna navigate to Write Page??      
+        Wanna navigate to Add Fruit Page??      
         <Link to={'/add-fruit'}>
           <span className='text-blue-500 hover:text-green-500 pl-2 cursor-pointer'>
             Click Me 

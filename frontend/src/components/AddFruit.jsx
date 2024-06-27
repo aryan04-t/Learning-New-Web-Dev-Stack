@@ -10,12 +10,50 @@ const AddFruit = () => {
     const [fruitName, setFruitName] = useState(''); 
     const [fruitColour, setFruitColour] = useState(''); 
 
-    const handleSubmit = (e) => {       
+    const handleSubmit = (e) => {
+
         e.preventDefault(); 
         e.stopPropagation(); 
 
         const db = getDatabase(app); 
         const newDocRef = push(ref(db, 'nature/fruits')); 
+    
+        /*
+            ---> If you will just take ref() of a path and then use set() function, then whatever data is present on that path, it will get replaced by the new data which is being set 
+            ---> But if you always want to add new data on a given path, then use push() function with ref(), push() function will give you a unique key and now when you will set data using set() function, the data will be set on this ref path 'nature/fruits/<unique_id_provided_by_push_function>' 
+
+            $ You can also create your own unique id and you can skip using push() function 
+        */
+
+        /*
+            # Creating our own unique id for pushing data to a path using set 
+
+            ---> Either you can create the unique id on your own by writing custom logic or you can use a package like uuid for creating it 
+
+
+            @ Create unique id using uuid: 
+
+            * uuid docs: https://www.npmjs.com/package/uuid
+            ---> Install uuid in frontend: 
+                Command: npm install uuid 
+            ---> Import package in file where you want to use it: 
+                import { v4 as uuidv4 } from 'uuid'; 
+            ---> Call uuid constructor for getting the unqiue value: 
+                const uniqueId = uuidv4();                                // Ex: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d' 
+
+
+            @ Create your own unqiue id by writing your own custom logic: 
+
+            const uniqueId = `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+
+
+
+            @ Now use the unqiue key which you have created above using any one of the one of the given ways, and then push data to the path 
+
+            const newDocRef2 = ref(db, `nature/fruits/${uniqueId}`); 
+            
+            ---> use this newDocRef2 in same way to set data as we are doing below using newDocRef 
+        */ 
 
         set(newDocRef, {
             fruitName, 
@@ -28,6 +66,30 @@ const AddFruit = () => {
             toast.error(err?.message); 
             console.log(err); 
         }); 
+
+        /*
+            # Summary about set() and push() 
+                ---> Use set(): When you want to write or replace data at a known location.
+                ---> Use push(): When you want to add a new, unique item to a list or collection, ensuring no data is overwritten.
+        */
+
+        // Above whole process of using push() while taking ref() and then using set() can also be done by just using push() directly after taking just ref() 
+        /*
+            const newDocRef3 = ref(db, 'nature/fruits'); 
+            push(newDocRef3, {
+                fruitName, 
+                fruitColour 
+            })
+            .then( (newFruitRef) => {
+                const newFruitId = newFruitRef.key; 
+                console.log(newFruitId); 
+                toast.success('Data has been successfully added to Database'); 
+            })
+            .catch( (err) => {
+                toast.error(err?.message); 
+                console.log(err); 
+            })
+        */
     }
 
     const cssForRows = 'p-4 text-white text-xl flex flex-col w-full'; 
