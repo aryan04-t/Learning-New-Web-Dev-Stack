@@ -48,14 +48,26 @@ const AddFruit = () => {
 
 
 
-            @ Now use the unqiue key which you have created above using any one of the one of the given ways, and then push data to the path 
+            @ Now use the unqiue key which you have created above using any one of the above given ways, and then push data to the path 
 
             const newDocRef2 = ref(db, `nature/fruits/${uniqueId}`); 
             
-            ---> use this newDocRef2 in same way to set data as we are doing below using newDocRef 
+            set(newDocRef2, {
+                _id : uniqueId, 
+                fruitName, 
+                fruitColour 
+            })
+            .then( () => {
+                toast.success('Data has been successfully added to Database'); 
+            })
+            .catch( (err) => {
+                toast.error(err?.message); 
+                console.log(err); 
+            }); 
         */ 
 
         set(newDocRef, {
+            _id : newDocRef.key, 
             fruitName, 
             fruitColour 
         })
@@ -73,10 +85,11 @@ const AddFruit = () => {
                 ---> Use push(): When you want to add a new, unique item to a list or collection, ensuring no data is overwritten.
         */
 
-        // Above whole process of using push() while taking ref() and then using set() can also be done by just using push() directly after taking just ref() 
+        // Above whole process of using push() while taking ref() and then using set() can also be done by just using push() directly after taking just ref() but in this way you will not be able to add _id attribute, you have to either update the data to add it in .then() or you have to use uuid here for adding _id value, there can be other ways also though 
+        
         /*
-            const newDocRef3 = ref(db, 'nature/fruits'); 
-            push(newDocRef3, {
+            const pathRef = ref(db, 'nature/fruits'); 
+            push(pathRef, {
                 fruitName, 
                 fruitColour 
             })
