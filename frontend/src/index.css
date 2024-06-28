@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 
-.glow-white, input:focus, button:hover {
+body{
+    @apply bg-zinc-900 
+}
+
+
+.glow-white, input:focus, button:hover, .icon:hover {
     box-shadow: 0 0 10px #fff 
 }
 
@@ -23,14 +28,6 @@
 }
 
 
-.card-flip-animation-container{
-    perspective: 1500px;
-}
-
-.card:hover {
-    transform: rotateY(180deg); 
-}
-
 .frontofcard {
     backface-visibility: hidden; 
 }
@@ -42,6 +39,10 @@
 
 .backofcard {
     transform: rotateY(180deg); 
+}
+
+.card-flip-animation-container{
+    perspective: 1500px;
 }
 
 
