@@ -10,6 +10,7 @@ const FruitsPage = () => {
 
     const [newFruitName, setNewFruitName] = useState(''); 
     const [newFruitColour, setNewFruitColour] = useState(''); 
+    const [editFruitFirebaseId, setEditFruitFirebaseId] = useState(''); 
 
     const addOrUpdateFruitCardProps = {
         isUpdateDivActive, 
@@ -17,14 +18,17 @@ const FruitsPage = () => {
         newFruitName, 
         setNewFruitName, 
         newFruitColour, 
-        setNewFruitColour 
+        setNewFruitColour,
+        editFruitFirebaseId,
+        setEditFruitFirebaseId 
     }
 
     const displayFruitsTableProps = {
         isUpdateDivActive, 
         setIsUpdateDivActive, 
         setNewFruitName, 
-        setNewFruitColour 
+        setNewFruitColour, 
+        setEditFruitFirebaseId 
     }
 
     return (

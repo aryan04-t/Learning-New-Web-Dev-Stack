@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
 import { app } from '../firebase/firebase.config' 
-import { getDatabase, ref, set, push } from 'firebase/database' 
+import { getDatabase, ref, set, push, update } from 'firebase/database' 
 
 import { MdClose } from "react-icons/md";
 
@@ -15,7 +15,9 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
         newFruitName, 
         setNewFruitName, 
         newFruitColour, 
-        setNewFruitColour 
+        setNewFruitColour, 
+        editFruitFirebaseId,
+        setEditFruitFirebaseId 
     } = addOrUpdateFruitCardProps; 
 
     const [fruitName, setFruitName] = useState(''); 
@@ -117,8 +119,26 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
     }
 
 
-    const handleUpdateFruit = async () => {
+    const handleUpdateFruit = async (e) => {
 
+        e.preventDefault(); 
+        e.stopPropagation(); 
+
+        const db = getDatabase(app); 
+        const docRef = ref(db, `nature/fruits/${editFruitFirebaseId}`); 
+
+        update(docRef, {
+            fruitName : newFruitName, 
+            fruitColour : newFruitColour 
+        })
+        .then( () => {
+            toast.success('Fruit Updated Successfully'); 
+            handleCloseUpdateTab(e); 
+        })
+        .catch( (err) => {
+            toast.error(err?.message); 
+            console.log(err); 
+        })
     }
 
 
@@ -129,6 +149,7 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
         setTimeout( () => {
             setFruitName(''); 
             setNewFruitColour(''); 
+            setEditFruitFirebaseId(''); 
         }, 600) 
     }
 
@@ -188,7 +209,7 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
 
             <form onSubmit={handleUpdateFruit} className='backofcard absolute z-10 h-full w-full p-8 bg-zinc-700 rounded-lg'>
                 
-                <button onClick={handleCloseUpdateTab} className='absolute top-[20px] right-[20px] h-[20px] w-[20px] rounded-full flex justify-center items-center hover:text-red-500 text-white text-xl'>
+                <button onClick={handleCloseUpdateTab} className='absolute top-[20px] left-[20px] h-[20px] w-[20px] rounded-full flex justify-center items-center hover:text-red-500 text-white text-xl'>
                     <MdClose />
                 </button>
                 

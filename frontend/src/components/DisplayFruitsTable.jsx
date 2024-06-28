@@ -12,7 +12,8 @@ const DisplayFruitsTable = ({displayFruitsTableProps}) => {
     isUpdateDivActive,
     setIsUpdateDivActive, 
     setNewFruitName, 
-    setNewFruitColour 
+    setNewFruitColour,
+    setEditFruitFirebaseId 
   } = displayFruitsTableProps; 
 
   const [fruitsArray, setFruitsArray] = useState([]); 
@@ -42,11 +43,13 @@ const DisplayFruitsTable = ({displayFruitsTableProps}) => {
     if(isUpdateDivActive === false){
       setNewFruitName(fruitObj?.fruitName); 
       setNewFruitColour(fruitObj?.fruitColour); 
+      setEditFruitFirebaseId(fruitObj?._id); 
       setIsUpdateDivActive(true); 
     }
     else{
       setNewFruitName(fruitObj?.fruitName); 
       setNewFruitColour(fruitObj?.fruitColour); 
+      setEditFruitFirebaseId(fruitObj?._id); 
     }
   }
 
