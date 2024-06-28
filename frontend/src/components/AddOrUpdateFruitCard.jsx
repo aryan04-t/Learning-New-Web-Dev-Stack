@@ -11,13 +11,12 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
 
     const {
         isUpdateDivActive, 
-        setIsUpdateDivActive, 
         newFruitName, 
         setNewFruitName, 
         newFruitColour, 
         setNewFruitColour, 
-        editFruitFirebaseId,
-        setEditFruitFirebaseId 
+        editFruitFirebaseId, 
+        handleCloseUpdateTab 
     } = addOrUpdateFruitCardProps; 
 
     const [fruitName, setFruitName] = useState(''); 
@@ -119,7 +118,7 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
     }
 
 
-    const handleUpdateFruit = async (e) => {
+    const handleUpdateFruit = (e) => {
 
         e.preventDefault(); 
         e.stopPropagation(); 
@@ -139,18 +138,6 @@ const AddOrUpdateFruitCard = ({addOrUpdateFruitCardProps}) => {
             toast.error(err?.message); 
             console.log(err); 
         })
-    }
-
-
-    const handleCloseUpdateTab = (e) => {
-        e.preventDefault();
-        e.stopPropagation(); 
-        setIsUpdateDivActive(false);
-        setTimeout( () => {
-            setFruitName(''); 
-            setNewFruitColour(''); 
-            setEditFruitFirebaseId(''); 
-        }, 600) 
     }
 
     const cssForRows = 'p-4 text-white text-xl flex flex-col w-full'; 

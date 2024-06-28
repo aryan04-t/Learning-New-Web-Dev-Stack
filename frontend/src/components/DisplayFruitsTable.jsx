@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
+import toast from 'react-hot-toast';
+
 import { app } from '../firebase/firebase.config';
-import { getDatabase, ref, get } from 'firebase/database';
+import { getDatabase, ref, get, remove } from 'firebase/database';
 
 import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
@@ -13,15 +15,16 @@ const DisplayFruitsTable = ({displayFruitsTableProps}) => {
     setIsUpdateDivActive, 
     setNewFruitName, 
     setNewFruitColour,
-    setEditFruitFirebaseId 
+    setEditFruitFirebaseId,
+    handleCloseUpdateTab 
   } = displayFruitsTableProps; 
 
   const [fruitsArray, setFruitsArray] = useState([]); 
 
   const getFruitsArray = async () => {
-    const db = getDatabase(app); 
-    const folderRef = ref(db, 'nature/fruits'); 
     try{
+      const db = getDatabase(app); 
+      const folderRef = ref(db, 'nature/fruits'); 
       const snapshot = await get(folderRef); 
       if(snapshot?.exists()){
         setFruitsArray(Object.values(snapshot.val())); 
@@ -53,6 +56,23 @@ const DisplayFruitsTable = ({displayFruitsTableProps}) => {
     }
   }
 
+  const deleteFruitDetails = async (e, fruitObj) => {
+    try{
+      e.stopPropagation();
+      
+      const db = getDatabase(app); 
+      const docRef = ref(db, `nature/fruits/${fruitObj?._id}`); 
+      
+      await remove(docRef); 
+      toast.success('Fruit Deleted Successfully'); 
+      handleCloseUpdateTab(e); 
+    }
+    catch(err){
+      toast.error(err?.message); 
+      console.log(err); 
+    }
+  }
+
   const tableHeaderRowColCSS = 'text-center flex items-center justify-center border-l-[2px] border-black p-2'; 
   const rowColsCSS = 'text-center flex items-center justify-center overflow-x-auto p-2'; 
 
@@ -79,7 +99,7 @@ const DisplayFruitsTable = ({displayFruitsTableProps}) => {
                     <span onClick={ (e) => handleEditFruitDetails(e, fruitObj) } className={iconsCSS + 'hover:text-sky-500 icon'}>
                       <MdEdit />
                     </span>
-                    <span className={iconsCSS + 'hover:text-red-500 icon'}>
+                    <span onClick={ (e) => deleteFruitDetails(e, fruitObj) } className={iconsCSS + 'hover:text-red-500 icon'}>
                       <MdDelete />
                     </span>
                   </td>

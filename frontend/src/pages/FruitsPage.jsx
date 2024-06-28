@@ -12,15 +12,25 @@ const FruitsPage = () => {
     const [newFruitColour, setNewFruitColour] = useState(''); 
     const [editFruitFirebaseId, setEditFruitFirebaseId] = useState(''); 
 
+    const handleCloseUpdateTab = (e) => {
+        e.preventDefault();
+        e.stopPropagation(); 
+        setIsUpdateDivActive(false);
+        setTimeout( () => {
+            setNewFruitName(''); 
+            setNewFruitColour(''); 
+            setEditFruitFirebaseId(''); 
+        }, 600) 
+    }
+
     const addOrUpdateFruitCardProps = {
         isUpdateDivActive, 
-        setIsUpdateDivActive, 
         newFruitName, 
         setNewFruitName, 
         newFruitColour, 
         setNewFruitColour,
-        editFruitFirebaseId,
-        setEditFruitFirebaseId 
+        editFruitFirebaseId, 
+        handleCloseUpdateTab  
     }
 
     const displayFruitsTableProps = {
@@ -28,7 +38,8 @@ const FruitsPage = () => {
         setIsUpdateDivActive, 
         setNewFruitName, 
         setNewFruitColour, 
-        setEditFruitFirebaseId 
+        setEditFruitFirebaseId, 
+        handleCloseUpdateTab 
     }
 
     return (
