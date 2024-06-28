@@ -11,7 +11,7 @@ const AddFruit = () => {
     const [fruitName, setFruitName] = useState(''); 
     const [fruitColour, setFruitColour] = useState(''); 
 
-    const handleSubmit = (e) => {
+    const handleAddFruit = (e) => {
 
         e.preventDefault(); 
         e.stopPropagation(); 
@@ -106,57 +106,111 @@ const AddFruit = () => {
         */
     }
 
+
+    const handleUpdateFruit = async () => {
+
+    }
+
     const cssForRows = 'p-4 text-white text-xl flex flex-col w-full'; 
     const cssForLabels = 'my-2'; 
-    const cssForInputTags = 'bg-white text-black p-2 rounded-lg text-[16px] w-full'; 
+    const cssForInputTags = 'bg-white text-black p-2 rounded-lg text-[16px] w-full outline-none'; 
 
     return (
-        <div className='w-screen h-screen bg-zinc-900 flex items-center justify-center gap-40'> 
-            <form onSubmit={handleSubmit} className='h-[500px] w-[400px] p-8 bg-zinc-700 rounded-lg'>
-                
-                <div className='text-5xl mb-[30px] mt-[15px] text-center text-white' >
-                    Fill the Form 
-                </div>
-
-                <div className='w-full h-fit'>
-                    <div className={cssForRows} >
-                        <label htmlFor='fruit-name' className={cssForLabels} > 
-                            Fruit's Name: 
-                        </label>
-                        <input 
-                            type='text' 
-                            value={fruitName} 
-                            id='fruit-name' 
-                            name='fruit-name' 
-                            placeholder="Enter a fruit's name here" 
-                            onChange={ (e) => setFruitName(e.target.value) }
-                            className={cssForInputTags}
-                        />
+        <div className='card-flip-animation-container w-screen h-screen bg-zinc-900 flex items-center justify-center gap-40'> 
+            <div className='card relative h-[500px] w-[400px]'>
+                <form onSubmit={handleAddFruit} className='frontofcard absolute z-20 h-full w-full p-8 bg-zinc-700 rounded-lg'>
+                    
+                    <div className='text-5xl mb-[30px] mt-[15px] text-center text-white' >
+                        Add Fruit
                     </div>
 
-                    <div className={cssForRows}>
-                        <label htmlFor='fruit-colour' className={cssForLabels} >
-                            Fruit's Colour: 
-                        </label>
-                        <input 
-                            type='text'
-                            value={fruitColour} 
-                            id='fruit-colour' 
-                            name='fruit-colour' 
-                            placeholder="Enter fruit's colour here" 
-                            onChange={ (e) => setFruitColour(e.target.value) }
-                            className={cssForInputTags}
-                        />
+                    <div className='w-full h-fit'>
+                        <div className={cssForRows} >
+                            <label htmlFor='fruit-name' className={cssForLabels} > 
+                                Fruit's Name: 
+                            </label>
+                            <input 
+                                type='text' 
+                                value={fruitName} 
+                                id='fruit-name' 
+                                name='fruit-name' 
+                                placeholder="Enter fruit's name here" 
+                                onChange={ (e) => setFruitName(e.target.value) }
+                                className={cssForInputTags}
+                            />
+                        </div>
+
+                        <div className={cssForRows}>
+                            <label htmlFor='fruit-colour' className={cssForLabels} >
+                                Fruit's Colour: 
+                            </label>
+                            <input 
+                                type='text'
+                                value={fruitColour} 
+                                id='fruit-colour' 
+                                name='fruit-colour' 
+                                placeholder="Enter fruit's colour here" 
+                                onChange={ (e) => setFruitColour(e.target.value) }
+                                className={cssForInputTags}
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <div className='w-full flex justify-center items-center mt-[36px]' >
-                    <button type='submit' className='h-[50px] w-[160px] text-lg text-white bg-blue-400 hover:bg-green-400 hover:text-black rounded-xl m-2' >
-                        Submit 
-                    </button>
-                </div>
+                    <div className='w-full flex justify-center items-center mt-[36px]' >
+                        <button type='submit' className='h-[50px] w-[160px] text-lg text-white bg-blue-400 hover:bg-green-400 hover:text-black rounded-xl m-2' >
+                            Add
+                        </button>
+                    </div>
 
-            </form>
+                </form>
+
+                <form onSubmit={handleUpdateFruit} className='backofcard absolute z-10 h-full w-full p-8 bg-zinc-700 rounded-lg'>
+                    
+                    <div className='text-5xl mb-[30px] mt-[15px] text-center text-white' >
+                        Update Fruit
+                    </div>
+
+                    <div className='w-full h-fit'>
+                        <div className={cssForRows} >
+                            <label htmlFor='fruit-name' className={cssForLabels} > 
+                                Fruit's New Name: 
+                            </label>
+                            <input 
+                                type='text' 
+                                value={fruitName} 
+                                id='fruit-name' 
+                                name='fruit-name' 
+                                placeholder="Enter fruit's new name here" 
+                                onChange={ (e) => setFruitName(e.target.value) }
+                                className={cssForInputTags}
+                            />
+                        </div>
+
+                        <div className={cssForRows}>
+                            <label htmlFor='fruit-colour' className={cssForLabels} >
+                                Fruit's New Colour: 
+                            </label>
+                            <input 
+                                type='text'
+                                value={fruitColour} 
+                                id='fruit-colour' 
+                                name='fruit-colour' 
+                                placeholder="Enter fruit's new colour here" 
+                                onChange={ (e) => setFruitColour(e.target.value) }
+                                className={cssForInputTags}
+                            />
+                        </div>
+                    </div>
+
+                    <div className='w-full flex justify-center items-center mt-[36px]' >
+                        <button type='submit' className='h-[50px] w-[160px] text-lg text-white bg-blue-400 hover:bg-green-400 hover:text-black rounded-xl m-2' >
+                            Update
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
 
             <DisplayFruits /> 
         </div>
